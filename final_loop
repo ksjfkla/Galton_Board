@@ -116,8 +116,7 @@ for q in list(range(rounds)):
     
     zhexiantu(q+1)
     
-    endtime = datetime.datetime.now()
-    print(f"程序的运行时间为：{endtime-starttime}")
+
     
     #ballsamount = 20
     #floorsamount = 5
@@ -126,7 +125,8 @@ for q in list(range(rounds)):
     for r in mclist:
         result[r] = []
        
-
+endtime = datetime.datetime.now()
+print(f"程序的运行时间为：{endtime-starttime}")
 
 
 
