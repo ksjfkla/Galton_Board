@@ -1,0 +1,133 @@
+from random import choice
+import datetime
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+starttime = datetime.datetime.now()
+
+
+def ball():
+    
+   # global mclen
+    global mclist
+    global result
+    global level
+    
+    jiedian = {}
+    boo = ["左", "右"]
+    
+    
+    #result = {}
+    #for r in mclist:
+    #    result[r] = []
+    
+    jiedian[0] = choice(boo)
+    i = 0    
+    while i < (level - 1):
+        for j in list(range(0,(mclist[-1]))):
+            print(f"正在检查节点{j}......")
+            if not j in jiedian.keys():
+                print("这个节点没状态")
+                print("-" * 20)
+                continue
+            elif jiedian[j] == "左":
+                i += 1
+                jiedian[j + i] = choice(boo)
+                print(f"第{i}层的节点{j}的状态是：左")
+                print("-" * 20)
+            elif jiedian[j] == "右":
+                i += 1
+                jiedian[j + i +1] = choice(boo)
+                print(f"第{i}层的节点{j}的状态是：右")
+                print("-" * 20)
+    
+    for k in mclist:            
+        try:
+            print(f"结束时，第{i+1}层的节点{k}的状态是：{jiedian[k]}")
+            
+            result[k].append(jiedian[k])
+            
+            break
+        except:
+            continue
+    
+    
+    for r in mclist:
+        print(f"末层号码{r}装有：{result[r]}")
+    
+
+        
+    print(mclist)
+    
+def zhexiantu(z):
+    global mclist
+    global mclen
+    plt.figure(figsize=(10,10),dpi=100)
+    plt.plot(mclist, mclen, linewidth = 1)
+    plt.title(f"Normal Distribution", fontsize=24) 
+    plt.xlabel(f"last floor", fontsize=14)
+    plt.ylabel(f"{ballsamount} balls", fontsize=14) 
+    #plt.ylim((min(dict1[l]), max(dict1[l])))
+    
+    my_x_ticks = np.arange(min(mclist), max(mclist)+1, 1)
+    my_y_ticks = np.arange(min(mclen), max(mclen)+1, 10)
+    plt.xticks(my_x_ticks)
+    plt.yticks(my_y_ticks)
+    
+    
+    plt.tick_params(axis='both', labelsize=10)
+    plt.savefig(f"G:\\pythonxiong\\normal_b\\pngs\\normal_d_{z}.png")
+
+
+# buttons
+ballsamount = 20000
+floorsamount = 20
+rounds = 5
+
+level = floorsamount
+mcn = 0
+for m in list(range(1, level)):
+    mcn += m
+mclist = list(range(mcn, mcn + level))
+
+result = {}    
+for r in mclist:
+   result[r] = []
+
+
+for q in list(range(rounds)):
+    
+    balls = 0    
+    while balls < ballsamount:
+        balls += 1
+        print("*" * 20)
+        print(f"现在第{balls}个球开始落下")
+        ball()
+        print(f"现在第{balls}个球到达末层")
+        print("*" * 20)
+        
+    
+        
+    mclen = []
+    for r in mclist:
+        mclen.append(len(result[r]))
+    print(mclen)
+    
+    zhexiantu(q+1)
+    
+    endtime = datetime.datetime.now()
+    print(f"程序的运行时间为：{endtime-starttime}")
+    
+    #ballsamount = 20
+    #floorsamount = 5
+
+    result = {}
+    for r in mclist:
+        result[r] = []
+       
+
+
+
+
+
